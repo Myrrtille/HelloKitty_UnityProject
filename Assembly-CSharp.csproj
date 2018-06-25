@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{9C748A9A-25A3-0EB4-C642-23FE927D7BB3}</ProjectGuid>
+    <ProjectGuid>{9334E663-B63F-9234-C358-4731D8711644}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\DeathHere.cs" />
+     <Compile Include="Assets\Scripts\FlyingMonster.cs" />
      <Compile Include="Assets\Scripts\Kitty.cs" />
      <Compile Include="Assets\Scripts\KittyFollow.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Scripts\MonsterPath.cs" />
      <Compile Include="Assets\Scripts\Platform.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

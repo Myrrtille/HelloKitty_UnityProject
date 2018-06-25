@@ -30,7 +30,7 @@ public class LevelController : MonoBehaviour {
 
     public void onKittyDeath(Kitty rabit)
     {
-        //При смерті кролика повертаємо на початкову позицію
+        Debug.Log("die");
         rabit.transform.position = this.startingPosition;
     }
 }

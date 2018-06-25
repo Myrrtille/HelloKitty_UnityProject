@@ -16,22 +16,13 @@ public class Platform : MonoBehaviour {
 
     void onTriggerEnter(Collider collider)
     {
-        if(Kitty.current == collider)
-        {
-            Debug.Log("coll enter");
-            if (!Kitty.current.isGrounded)
-            {
-                Physics.IgnoreCollision(GetComponent<Collider>(), collider, true);
-            }
-        }
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Kitty") && !Kitty.current.isGrounded)
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), Kitty.current.GetComponent<Collider2D>(), true);
     }
 
     void onTriggerExit(Collider collider)
     {
-        if(Kitty.current == collider)
-        {
-            Debug.Log("coll exit");
-            Physics.IgnoreCollision(GetComponent<Collider>(), collider, false);
-        }
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Kitty"))
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), Kitty.current.GetComponent<Collider2D>(), false);
     }
 }

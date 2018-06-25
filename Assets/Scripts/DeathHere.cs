@@ -16,7 +16,7 @@ public class DeathHere : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("die");
+        Debug.Log("death here");
         Kitty kitty = collider.GetComponent<Kitty>();
         if (kitty != null)
         {
