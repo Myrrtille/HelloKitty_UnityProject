@@ -18,8 +18,7 @@ public class Collectable : MonoBehaviour
 
     public void CollectedHide()
     {
-        //Destroy(this.gameObject);
-
+        Destroy(this.gameObject);
     }
 }
 

@@ -95,9 +95,10 @@ public class FlyingMonster : MonoBehaviour {
         if (collider.gameObject.layer != LayerMask.NameToLayer("Kitty"))
             return;
 
-        if (false)//kitty kill monster (shoot flower?)
+        if (collider.transform.position.y > this.transform.position.y + 1.2)//kitty kill monster (shoot flower?)
         {
             //StartCoroutine(monsterDie());
+            die();
         }
         else
         {

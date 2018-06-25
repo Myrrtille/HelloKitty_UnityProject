@@ -18,14 +18,13 @@ public class Flower : Collectable {
 
     protected override void OnKittyHit(Kitty kitty)
     {
+        Debug.Log("flower collected");
         LevelController.current.addFlower();
         CollectedHide();
-
     }
 
     IEnumerator createNew()
     {
         yield return new WaitForSeconds(9.0f);
-        
     }
 }

@@ -40,16 +40,6 @@ public class Kitty : MonoBehaviour {
             myBody.velocity = vel;
         }
 
-        Vector3 from = transform.position + Vector3.up;// * 0.03f;
-        Vector3 to = transform.position + Vector3.down;//* 0.01f;
-        Debug.DrawLine(from, to);
-        int layer_id = 1 << LayerMask.NameToLayer("Ground");
-        RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
-        if (hit)
-            isGrounded = true;
-        else
-            isGrounded = false;
-
         if (isGrounded)
         {
             this.JumpTime += Time.deltaTime;
@@ -61,6 +51,18 @@ public class Kitty : MonoBehaviour {
             }
         }
 
+        Vector3 from = transform.position + Vector3.up;// * 0.03f;
+        Vector3 to = transform.position + Vector3.down;//* 0.01f;
+        Debug.DrawLine(from, to);
+        int layer_id = 1 << LayerMask.NameToLayer("Ground");
+        RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
+        layer_id = 1 << LayerMask.NameToLayer("Monster");
+        RaycastHit2D hit1 = Physics2D.Linecast(from, to, layer_id);
+        if (hit || hit1)
+            isGrounded = true;
+        else
+            isGrounded = false;
+
         if (Input.GetKeyDown("space")){
             GameObject obj = GameObject.Instantiate(this.flower);
             //Розміщуємо в просторі
@@ -69,4 +71,5 @@ public class Kitty : MonoBehaviour {
             Bullet bullet = obj.GetComponent<Bullet>();
         }
     }
+
 }

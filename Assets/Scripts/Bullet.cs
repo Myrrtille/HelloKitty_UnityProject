@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 pos = this.transform.position;
-        pos.y += Time.deltaTime + 1 * 0.05f;
+        pos.y += Time.deltaTime +  1* 0.05f;
         this.transform.position = pos;
     }
 
@@ -26,16 +26,17 @@ public class Bullet : MonoBehaviour {
 
     void onMonsterHit(FlyingMonster monster)
     {
-        Debug.Log("hit");
         monster.die();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        int layer_id = 1 << LayerMask.NameToLayer("Monster");
-        if (collider.gameObject.layer == layer_id)
+        Debug.Log("hit");
+        //int layer_id = 1 << LayerMask.NameToLayer("Monster");
+        FlyingMonster monster = collider.GetComponent<FlyingMonster>();
+        if (monster != null)
         {
-            onMonsterHit(collider.GetComponent<FlyingMonster>());
+            onMonsterHit(monster);
         }
     }
 }
