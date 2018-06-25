@@ -105,4 +105,9 @@ public class FlyingMonster : MonoBehaviour {
             LevelController.current.onKittyDeath(Kitty.current);
         }
     }
+
+    public void die()
+    {
+        Destroy(this.gameObject);
+    }
 }

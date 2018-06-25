@@ -6,6 +6,8 @@ public class LevelController : MonoBehaviour {
 
     public static LevelController current;
 
+    int flowers = 0;
+
     // Use this for initialization
     void Start () {
 		
@@ -32,5 +34,10 @@ public class LevelController : MonoBehaviour {
     {
         Debug.Log("die");
         rabit.transform.position = this.startingPosition;
+    }
+
+    public void addFlower()
+    {
+        flowers++;
     }
 }

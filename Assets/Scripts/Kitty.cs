@@ -5,6 +5,7 @@ using UnityEngine;
 public class Kitty : MonoBehaviour {
 
     public static Kitty current;
+    public GameObject flower;
 
     public Rigidbody2D myBody = null;
     public float speed = 2;
@@ -58,6 +59,14 @@ public class Kitty : MonoBehaviour {
                 vel.y = JumpSpeed * (1.0f - JumpTime / MaxJumpTime);
                 myBody.velocity = vel;
             }
+        }
+
+        if (Input.GetKeyDown("space")){
+            GameObject obj = GameObject.Instantiate(this.flower);
+            //Розміщуємо в просторі
+            obj.transform.position = this.transform.position;
+            //Запускаємо в рух
+            Bullet bullet = obj.GetComponent<Bullet>();
         }
     }
 }
