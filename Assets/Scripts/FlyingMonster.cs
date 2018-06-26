@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingMonster : MonoBehaviour {
+public class FlyingMonster : Monster {
 
     public static FlyingMonster current;
 
@@ -19,6 +19,8 @@ public class FlyingMonster : MonoBehaviour {
     public float movingDist = 14;
     public float speed = 2;
 
+    public bool flip = false;
+
     Vector3 scale_speed;
     Vector3 targetScale = Vector3.one;
 
@@ -30,7 +32,14 @@ public class FlyingMonster : MonoBehaviour {
         pointA = this.transform.position;
         pointB = pointA;
         pointB.x += movingDist;
-
+        if (flip)
+        {
+            pointB = this.transform.position;
+            pointA = pointB;
+            pointA.x -= movingDist;
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.flipX = true;
+        }
         myBody = this.GetComponent<Rigidbody2D>();
         //LevelController.current.setStartPosition(this.transform.position);
     }
@@ -90,25 +99,23 @@ public class FlyingMonster : MonoBehaviour {
         this.transform.localScale = Vector3.SmoothDamp(this.transform.localScale, this.targetScale, ref scale_speed, 1.0f);
     }
 
-    void OnCollisionEnter2D(Collision2D collider)
+    protected override void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.gameObject.layer != LayerMask.NameToLayer("Kitty"))
             return;
 
-        if (collider.transform.position.y > this.transform.position.y + 1.2)//kitty kill monster (shoot flower?)
+        if (collider.transform.position.y > this.transform.position.y + 1)//kitty kill monster (shoot flower?)
         {
-            //StartCoroutine(monsterDie());
+            Vector2 vel = Kitty.current.myBody.velocity;
+            vel.y = Kitty.current.jumpHeight;
+            Kitty.current.myBody.velocity = vel;
             die();
         }
         else
         {
             //callAttack();
+            Kitty.current.removeHealth();
             LevelController.current.onKittyDeath(Kitty.current);
         }
-    }
-
-    public void die()
-    {
-        Destroy(this.gameObject);
     }
 }

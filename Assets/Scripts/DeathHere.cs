@@ -20,6 +20,7 @@ public class DeathHere : MonoBehaviour {
         Kitty kitty = collider.GetComponent<Kitty>();
         if (kitty != null)
         {
+            kitty.removeHealth();
             LevelController.current.onKittyDeath(kitty);
         }
     }

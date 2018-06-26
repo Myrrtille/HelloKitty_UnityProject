@@ -46,7 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Bomb.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Candy.cs" />
      <Compile Include="Assets\Scripts\Collectable.cs" />
      <Compile Include="Assets\Scripts\DeathHere.cs" />
      <Compile Include="Assets\Scripts\Flower.cs" />
@@ -54,7 +56,10 @@
      <Compile Include="Assets\Scripts\Kitty.cs" />
      <Compile Include="Assets\Scripts\KittyFollow.cs" />
      <Compile Include="Assets\Scripts\LevelController.cs" />
+     <Compile Include="Assets\Scripts\Monster.cs" />
+     <Compile Include="Assets\Scripts\MonsterBomb.cs" />
      <Compile Include="Assets\Scripts\MonsterPath.cs" />
+     <Compile Include="Assets\Scripts\MonsterWithBombs.cs" />
      <Compile Include="Assets\Scripts\Platform.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

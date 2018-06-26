@@ -1,20 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Kitty : MonoBehaviour {
 
     public static Kitty current;
     public GameObject flower;
 
+    public Image life1;
+    public Image life2;
+    public Image life3;
+
     public Rigidbody2D myBody = null;
     public float speed = 2;
     public bool isGrounded = false;
-    float JumpTime = 0f;
-    public float MaxJumpTime = 0f;
-    public float JumpSpeed = 0f;
+    //float JumpTime = 0f;
+    //public float MaxJumpTime = 0f;
+    //public float JumpSpeed = 0f;
+    public float jumpHeight = 20;
 
     public Transform groundPrefab;
+
+    int health = 3;
 
     void Awake()
     {
@@ -42,34 +51,66 @@ public class Kitty : MonoBehaviour {
 
         if (isGrounded)
         {
-            this.JumpTime += Time.deltaTime;
-            if (this.JumpTime < this.MaxJumpTime)
-            {
-                Vector2 vel = myBody.velocity;
-                vel.y = JumpSpeed * (1.0f - JumpTime / MaxJumpTime);
-                myBody.velocity = vel;
-            }
+            Vector2 vel = myBody.velocity;
+            vel.y = jumpHeight;
+            myBody.velocity = vel;
         }
 
-        Vector3 from = transform.position + Vector3.up;// * 0.03f;
-        Vector3 to = transform.position + Vector3.down;//* 0.01f;
+        Vector3 from = transform.position + Vector3.up * 0.2f;// * 0.03f;
+        Vector3 to = transform.position + Vector3.down * 0.6f;//* 0.01f;
         Debug.DrawLine(from, to);
         int layer_id = 1 << LayerMask.NameToLayer("Ground");
         RaycastHit2D hit = Physics2D.Linecast(from, to, layer_id);
-        layer_id = 1 << LayerMask.NameToLayer("Monster");
-        RaycastHit2D hit1 = Physics2D.Linecast(from, to, layer_id);
-        if (hit || hit1)
+        if (hit)
             isGrounded = true;
         else
             isGrounded = false;
 
         if (Input.GetKeyDown("space")){
-            GameObject obj = GameObject.Instantiate(this.flower);
-            //Розміщуємо в просторі
-            obj.transform.position = this.transform.position;
-            //Запускаємо в рух
-            Bullet bullet = obj.GetComponent<Bullet>();
+            if(LevelController.current.amountOfFlowers() !=0)
+            {
+                GameObject obj = GameObject.Instantiate(this.flower);
+                //Розміщуємо в просторі
+                obj.transform.position = this.transform.position;
+                //Запускаємо в рух
+                Bullet bullet = obj.GetComponent<Bullet>();
+                LevelController.current.removeFlower();
+            }
         }
+    }
+
+    public void removeHealth()
+    {
+        if (!isDead())
+        {
+            health--;
+            if (health == 2)
+                life3.enabled = false;
+            else if (health == 1)
+                life2.enabled = false;
+            else if (health == 0)
+                life1.enabled = false;
+        }
+        else
+        {
+            SceneManager.LoadScene("gameplay");
+        }
+
+        LevelController.current.onKittyDeath(current);
+    }
+
+    public bool isDead() { return health == 0; }
+
+    public void addHealth()
+    {
+        if (health == 2)
+            life3.enabled = true;
+        else if (health == 1)
+            life2.enabled = true;
+        else if (health == 0)
+            life1.enabled = true;
+        if (health < 3)
+            health++;
     }
 
 }
