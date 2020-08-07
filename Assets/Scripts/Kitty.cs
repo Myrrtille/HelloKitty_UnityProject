@@ -34,7 +34,6 @@ public class Kitty : MonoBehaviour {
     void Start () {
         myBody = this.GetComponent<Rigidbody2D>();
         LevelController.current.setStartPosition(transform.position);
-
         //Physics.IgnoreCollision(groundPrefab.GetComponent<Collider>(), GetComponent<Collider>());
     }
 	
@@ -48,6 +47,16 @@ public class Kitty : MonoBehaviour {
             vel.x = value * speed;
             myBody.velocity = vel;
         }
+
+        
+
+        if(System.Math.Abs(myBody.position.x) > 7)
+        {
+            Vector2 pos = myBody.position;
+            pos.x *= -1;
+            myBody.position = pos;
+        }
+        
 
         if (isGrounded)
         {
@@ -70,9 +79,7 @@ public class Kitty : MonoBehaviour {
             if(LevelController.current.amountOfFlowers() !=0)
             {
                 GameObject obj = GameObject.Instantiate(this.flower);
-                //Розміщуємо в просторі
                 obj.transform.position = this.transform.position;
-                //Запускаємо в рух
                 Bullet bullet = obj.GetComponent<Bullet>();
                 LevelController.current.removeFlower();
             }
